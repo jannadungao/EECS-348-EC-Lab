@@ -6,6 +6,7 @@
 using namespace std;
 
 double extractNumeric(const string& input) {
+    // initialize variables
     int length = input.length();
     double new_num;
     bool neg = false;
@@ -14,33 +15,33 @@ double extractNumeric(const string& input) {
     // Check if valid input
     int sign_count = 0;
     int dec_count = 0;
-    if (input[0] == '.' || input[length - 1] == '.') {
+    if (input[0] == '.' || input[length - 1] == '.') { // if decimal in invalid index
         return -999999.99;
     }
 
     for (int i = 0; i < length; i++) {
-        if (input[i] != '0' && input[i] != '1' && input[i] != '2' && input[i] != '3' && input[i] != '4' &&
+        if (input[i] != '0' && input[i] != '1' && input[i] != '2' && input[i] != '3' && input[i] != '4' && // check if each character is valid
             input[i] != '5' && input[i] != '6' && input[i] != '7' && input[i] != '8' && input[i] != '9' && 
             input[i] != '.' && input[i] != '+' && input[i] != '-') {
                 return -999999.99;
-        } else if (input[i] == '+' || input[i] == '-'){
+        } else if (input[i] == '+' || input[i] == '-'){ // count number of sign characters to make sure there's only one or zero
             sign_count++;
-        } else if (input[i] == '.') {
+        } else if (input[i] == '.') { // count number of decimals to make sure there's one or zero
             dec_count++;
         }
     }
 
     for (int i = 1; i < length; i++) {
-        if (input[i] == '-' || input[i] == '+') {
+        if (input[i] == '-' || input[i] == '+') { // if sign characters are anywhere but index 0 it's invalid
             return -999999.99;
         }
     }
 
-    if (sign_count > 1 || dec_count > 1 || length == 0 || length > 20) {
+    if (sign_count > 1 || dec_count > 1 || length == 0 || length > 20) { // if there's too many signs/decimals or the input is too small/large
         return -999999.99;
     }
 
-    // if valid input
+    // if valid input - begin conversion from string to int
     for (int i = 0; i < length; i++) {
         if (input[i] == '-') {
             neg = true;
@@ -68,8 +69,9 @@ int main() {
     while (true) {
         cout << "Enter a string (or 'END' to quit): ";
         cin >> input;
-
-        if (input == 'END') {
+        int length = input.length();
+        
+        if (input[0] == 'E' && input[1] == 'N' && input[2] == 'D' && input[3] == NULL) {
             break;
         }
 
