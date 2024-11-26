@@ -5,34 +5,7 @@
 // Add this line to avoid repeating std::
 using namespace std;
 
-// Prototype for the extractNumeric function
-double extractNumeric(const strings& str);
-
-int main() {
-    string input;
-
-    while (true) {
-        cout << "Enter a string (or 'END' to quit): ";
-        cin >> input;
-
-        if (input == 'END') {
-            break;
-        }
-
-        double number = extractNumeric(input);
-
-        if (number != -999999.99) {
-            cout << "The input is: " << fixed << setprecision(4)
-                 << number << endl;
-        } else {
-            cout << "The input is invalid." << endl;
-        }
-    }
-
-    return 0;
-}
-
-double extractNumeric(input) {
+double extractNumeric(const string& input) {
     int length = input.length();
     double new_num;
     bool neg = false;
@@ -41,7 +14,7 @@ double extractNumeric(input) {
     // Check if valid input
     int sign_count = 0;
     int dec_count = 0;
-    if (index[0] == '.' || index[length - 1] == '.') {
+    if (input[0] == '.' || input[length - 1] == '.') {
         return -999999.99;
     }
 
@@ -75,14 +48,40 @@ double extractNumeric(input) {
             ;
         } else if (input[i] == '.') {
             dec_index /= 10.0;
-            new_num += dec_index * (index[i] - '0');
+            new_num += dec_index * (input[i] - '0');
         } else {
-            new_num = (index[i] - '0') + (new_num * 10);
+            new_num = (input[i] - '0') + (new_num * 10);
         }
     }    
     if (neg == true) {
         new_num *= -1;
     }
     
-    return new_num
+    return new_num;
+}
+
+
+
+int main() {
+    string input;
+
+    while (true) {
+        cout << "Enter a string (or 'END' to quit): ";
+        cin >> input;
+
+        if (input == 'END') {
+            break;
+        }
+
+        double number = extractNumeric(input);
+
+        if (number != -999999.99) {
+            cout << "The input is: " << fixed << setprecision(4)
+                 << number << endl;
+        } else {
+            cout << "The input is invalid." << endl;
+        }
+    }
+
+    return 0;
 }
