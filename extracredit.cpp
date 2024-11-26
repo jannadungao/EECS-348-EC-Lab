@@ -42,19 +42,20 @@ double extractNumeric(const string& input) {
     }
 
     // if valid input - begin conversion from string to int
-    for (int i = 0; i < length; i++) {
-        if (input[i] == '-') {
+    for (int i = 0; i < length; i++) { 
+        if (input[i] == '-') { // check sign
             neg = true;
-        } else if (input[i] == '+') {
-            ;
-        } else if (input[i] == '.') {
+        } else if (input[i] == '+') { 
+            ; // do nothing if positive
+        } else if (input[i] == '.') { // if char is decimal
             dec_index /= 10.0;
             new_num += dec_index * (input[i] - '0');
-        } else {
+            // cout << new_num << endl;
+        } else { // at this point, it must be a number
             new_num = (input[i] - '0') + (new_num * 10);
         }
     }    
-    if (neg == true) {
+    if (neg == true) { // deal with - if negative
         new_num *= -1;
     }
     
@@ -69,19 +70,18 @@ int main() {
     while (true) {
         cout << "Enter a string (or 'END' to quit): ";
         cin >> input;
-        int length = input.length();
         
-        if (input[0] == 'E' && input[1] == 'N' && input[2] == 'D' && input[3] == NULL) {
+        if (input[0] == 'E' && input[1] == 'N' && input[2] == 'D') { // if user wants to end
             break;
         }
 
-        double number = extractNumeric(input);
+        double number = extractNumeric(input); // function call
 
         if (number != -999999.99) {
-            cout << "The input is: " << fixed << setprecision(4)
+            cout << "The input is: " << fixed << setprecision(4) // output number
                  << number << endl;
         } else {
-            cout << "The input is invalid." << endl;
+            cout << "The input is invalid." << endl; // or output invalid
         }
     }
 
